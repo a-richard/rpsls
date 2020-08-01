@@ -24,19 +24,75 @@
     <title>Frontend Mentor | Rock, Paper, Scissors, Lizard, Spock</title>
   </head>
   <body>
-    <header id="header">
+    <header id="header" class="container-padding">
       <div class="title-container">
-        <ul class="moves">
-          <li><h3>rock</h3></li>
-          <li><h3>paper</h3></li>
-          <li><h3>scissors</h3></li>
-          <li><h3>lizard</h3></li>
-          <li><h3>spock</h3></li>
-        </ul>
+        <img
+          src="images/logo.svg"
+          alt="rock paper scissors lizard spock logo"
+          class="logo"
+        />
+        <div class="score">
+          <p class="score-label">score</p>
+          <h2 class="score-value">0</h2>
+        </div>
       </div>
     </header>
-    <section id="board"></section>
-    <footer id="footer">
+    <section id="middle-section" class="container-padding">
+      <div class="game-board">
+        <button id="scissors">
+          <div class="border-scissors border-div">
+            <div class="icon-bg">
+            <img
+              src="images/icon-scissors.svg"
+              alt="scissors icon"
+              class="icon"
+            />
+          </div>
+          </div>
+        </button>
+        <button id="spock">
+          <div class="border-spock border-div">
+            <div class="icon-bg">
+            <img
+              src="images/icon-spock.svg"
+              alt="spock icon"
+              class="icon"
+            />
+          </div>
+          </div>
+        </button>
+        <button id="paper">
+          <div class="border-paper border-div">
+            <div class="icon-bg">
+            <img
+              src="images/icon-paper.svg"
+              alt="paper icon"
+              class="icon"
+            />
+          </div>
+        </div>
+        </button>
+        <button id="lizard">
+          <div class="border-lizard border-div">
+            <div class="icon-bg">
+            <img
+              src="images/icon-lizard.svg"
+              alt="lizard icon"
+              class="icon"
+            />
+          </div>
+        </div>
+        </button>
+        <button id="rock">
+          <div class="border-rock border-div">
+            <div class="icon-bg">
+            <img src="images/icon-rock.svg" alt="rock icon" class="icon" />
+          </div>
+        </button>
+      </div>
+    </div>
+    </section>
+    <footer id="footer" class="container-padding">
       <div class="attribution">
         Challenge by
         <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
