@@ -24,12 +24,14 @@
     <title>Frontend Mentor | Rock, Paper, Scissors, Lizard, Spock</title>
   </head>
   <body>
+    <!-- Header -->
     <header id="header" class="container-padding">
       <div class="title-container">
         <img
           src="images/logo.svg"
           alt="rock paper scissors lizard spock logo"
           class="logo"
+          draggable="false"
         />
         <div class="score">
           <p class="score-label">score</p>
@@ -37,61 +39,113 @@
         </div>
       </div>
     </header>
-    <section id="middle-section" class="container-padding">
+    <!-- Main middle section -->
+    <section id="middle-section-main" class="container-padding">
       <div class="game-board">
-        <button id="scissors">
+        <button id="scissors" class="scissors-button">
           <div class="border-scissors border-div">
             <div class="icon-bg">
             <img
               src="images/icon-scissors.svg"
               alt="scissors icon"
               class="icon"
+              draggable="false"
             />
           </div>
           </div>
         </button>
-        <button id="spock">
+        <button id="spock" class="spock-button">
           <div class="border-spock border-div">
             <div class="icon-bg">
             <img
               src="images/icon-spock.svg"
               alt="spock icon"
               class="icon"
+              draggable="false"
             />
           </div>
           </div>
         </button>
-        <button id="paper">
+        <button id="paper" class="paper-button">
           <div class="border-paper border-div">
             <div class="icon-bg">
             <img
               src="images/icon-paper.svg"
               alt="paper icon"
               class="icon"
+              draggable="false"
             />
           </div>
         </div>
         </button>
-        <button id="lizard">
+        <button id="lizard" class="lizard-button">
           <div class="border-lizard border-div">
             <div class="icon-bg">
             <img
               src="images/icon-lizard.svg"
               alt="lizard icon"
               class="icon"
+              draggable="false"
             />
           </div>
         </div>
         </button>
-        <button id="rock">
+        <button id="rock" class="rock-button">
           <div class="border-rock border-div">
             <div class="icon-bg">
-            <img src="images/icon-rock.svg" alt="rock icon" class="icon" />
+            <img src="images/icon-rock.svg" alt="rock icon" class="icon"
+            draggable="false" />
           </div>
         </button>
       </div>
     </div>
+    <button class="rules-button">rules</button>
     </section>
+    <!-- Game middle section -->
+    <section id="middle-section-game" class="container-padding">
+      <div class="game-div-container">
+        <div>
+        <h3 class="game-div-label">you picked</h3>
+        <div class="border-scissors border-div game-div">
+          <div class="icon-bg">
+          <img
+            src="images/icon-scissors.svg"
+            alt="scissors icon"
+            class="icon game-icon"
+            draggable="false"
+          />
+        </div>
+      </div>
+      </div>
+      <div>
+      <h3 class="game-div-label">the house picked</h3>
+        <div class="border-spock border-div game-div">
+          <div class="icon-bg">
+          <img
+            src="images/icon-spock.svg"
+            alt="spock icon"
+            class="icon game-icon"
+            draggable="false"
+          />
+        </div>
+        </div>
+      </div>
+      <div id="round-end" class="result-container">
+        <h1 id="game-result" class="result-text">you win</h1>
+        <button id="play-again" class="play-button">play again</button>
+      </div>
+    </div>
+    <button class="rules-button">rules</button>
+    </section>
+    <!-- Rules -->
+    <div class="rules-background">
+    <div id="rules" class="rules-container">
+      <h2>rules</h2>
+      <img src="images/icon-close.svg" alt="close rules icon" class="close-icon" width:="22" height="22" draggable="false">
+      <img src="images/image-rules.svg" alt="rules explanation" class="rules-image" width="500" height="500" draggable="false">
+    </div>
+  </div>
+    <!-- Footer -->
     <footer id="footer" class="container-padding">
       <div class="attribution">
         Challenge by
