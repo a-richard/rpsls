@@ -41,8 +41,9 @@
     </header>
     <!-- Main middle section -->
     <section id="middle-section-main" class="container-padding">
-      <div class="game-board">
-        <button id="scissors" class="scissors-button">
+      <div class="game-board-box">
+      <div class="game-board-content">
+        <button id="scissors" class="scissors-button moves-button">
           <div class="border-scissors border-div">
             <div class="icon-bg">
             <img
@@ -54,7 +55,7 @@
           </div>
           </div>
         </button>
-        <button id="spock" class="spock-button">
+        <button id="spock" class="spock-button moves-button">
           <div class="border-spock border-div">
             <div class="icon-bg">
             <img
@@ -66,7 +67,7 @@
           </div>
           </div>
         </button>
-        <button id="paper" class="paper-button">
+        <button id="paper" class="paper-button moves-button">
           <div class="border-paper border-div">
             <div class="icon-bg">
             <img
@@ -78,7 +79,7 @@
           </div>
         </div>
         </button>
-        <button id="lizard" class="lizard-button">
+        <button id="lizard" class="lizard-button moves-button">
           <div class="border-lizard border-div">
             <div class="icon-bg">
             <img
@@ -90,7 +91,7 @@
           </div>
         </div>
         </button>
-        <button id="rock" class="rock-button">
+        <button id="rock" class="rock-button moves-button">
           <div class="border-rock border-div">
             <div class="icon-bg">
             <img src="images/icon-rock.svg" alt="rock icon" class="icon"
@@ -99,16 +100,17 @@
         </button>
       </div>
     </div>
-    <button class="rules-button">rules</button>
+    </div>
     </section>
     <!-- Game middle section -->
     <section id="middle-section-game" class="container-padding">
       <div class="game-div-container">
         <div>
         <h3 class="game-div-label">you picked</h3>
-        <div class="border-scissors border-div game-div">
+        <div class="border-div game-div game-div-player border-scissors ">
           <div class="icon-bg">
-          <img
+          <img 
+            id="player-move"
             src="images/icon-scissors.svg"
             alt="scissors icon"
             class="icon game-icon"
@@ -119,30 +121,34 @@
       </div>
       <div>
       <h3 class="game-div-label">the house picked</h3>
-        <div class="border-spock border-div game-div">
+      <div class="house-background">
+        <div class="border-div game-div game-div-house border-scissors">
           <div class="icon-bg">
           <img
-            src="images/icon-spock.svg"
-            alt="spock icon"
+            id="house-move"
+            src="images/icon-scissors.svg"
+            alt="scissors icon"
             class="icon game-icon"
             draggable="false"
           />
         </div>
         </div>
       </div>
+      </div>
+      </div>
       <div id="round-end" class="result-container">
         <h1 id="game-result" class="result-text">you win</h1>
         <button id="play-again" class="play-button">play again</button>
       </div>
     </div>
-    <button class="rules-button">rules</button>
     </section>
     <!-- Rules -->
+    <button class="rules-button">rules</button>
     <div class="rules-background">
     <div id="rules" class="rules-container">
       <h2>rules</h2>
       <img src="images/icon-close.svg" alt="close rules icon" class="close-icon" width:="22" height="22" draggable="false">
-      <img src="images/image-rules.svg" alt="rules explanation" class="rules-image" width="500" height="500" draggable="false">
+      <img src="images/image-rules.svg" alt="rules explanation" class="rules-image" width="400" height="400" draggable="false">
     </div>
   </div>
     <!-- Footer -->
