@@ -7,32 +7,48 @@ function sleep(ms) {
 let score = 0;
 
 // Moves array
-const movesList = ['rock', 'paper', 'scissors', 'lizard', 'spock'];
+const movesList = ['R', 'P', 'SC', 'L', 'S'];
 
-// Store DOM in variables
-let rulesBox = document.querySelector('.rules-background');
+// Player moves array
+const playerMoves = [];
+
+// Player moves probabilities
+const movesScore = {
+  R: 0,
+  P: 0,
+  SC: 0,
+  L: 0,
+  S: 0,
+};
+
+// Rules box DOM variables
+let rulesButton = document.querySelector('.rules-button');
 let closeButton = document.querySelector('.close-icon');
-let rulesButtons = document.querySelectorAll('.rules-button');
-let result = document.querySelector('.result-container');
-let placeHolder = document.querySelector('.house-placeholder');
+let rulesBox = document.querySelector('.rules-background');
+
+// Game buttons DOM variables
+let movesButtons = document.querySelectorAll('.moves-button');
+let playAgain = document.querySelector('.play-button');
+
+// Middle section DOM variables
+let mainSection = document.querySelector('#middle-section-main');
+let gameSection = document.querySelector('#middle-section-game');
+
+// Game icons DOM variables
 let house = document.querySelector('.game-div-house');
 let houseIcon = document.querySelector('#house-move');
 let player = document.querySelector('.game-div-player');
 let playerIcon = document.querySelector('#player-move');
-let playButton = document.querySelector('#play-again');
-let movesButtons = document.querySelectorAll('.moves-button');
-let mainSection = document.querySelector('#middle-section-main');
-let gameSection = document.querySelector('#middle-section-game');
+
+// Result and score DOM variables
+let result = document.querySelector('.result-container');
 let scoreValue = document.querySelector('.score-value');
-let gameResult = document.querySelector('#game-result');
-let playAgain = document.querySelector('#play-again');
+let gameResult = document.querySelector('.result-text');
 
 // Rules button
-rulesButtons.forEach(function (button) {
-  button.onclick = function () {
-    rulesBox.style.display = 'block';
-  };
-});
+rulesButton.onclick = function () {
+  rulesBox.style.display = 'block';
+};
 
 closeButton.onclick = function () {
   rulesBox.style.display = 'none';
@@ -58,7 +74,7 @@ playAgain.addEventListener('click', function () {
 // Start round passing clicked button as chosen move
 function roundStart() {
   animateMiddleSection();
-  let playerMove = this.id;
+  playerMove = this.id;
   setPlayerMove(playerMove);
   let houseMove = getHouseMove();
   setHouseMove(houseMove);
@@ -66,9 +82,9 @@ function roundStart() {
     animateHouseMove();
   }, 2000);
   let roundResult = checkResult(playerMove, houseMove);
-  if (roundResult === 'draw') {
+  if (roundResult === 'D') {
     gameResult.innerText = 'draw';
-  } else if (roundResult === 'lose') {
+  } else if (roundResult === 'L') {
     score--;
     gameResult.innerText = 'you lose';
   } else {
@@ -78,41 +94,111 @@ function roundStart() {
   setTimeout(function () {
     animateResult(roundResult);
   }, 3000);
+  playerMoves.push(playerMove);
 }
 
 // Get computer move
 function getHouseMove() {
-  let moveIndex = Math.floor(Math.random() * 5);
-  return movesList[moveIndex];
+  // Generate random number between 0 and 4
+  let randomMove = Math.floor(Math.random() * 5);
+  // If it's the first round, do random move based on random number above
+  if (playerMoves.length === 0) return movesList[randomMove];
+  // Until round 4, update scores then do random move
+  else if (playerMoves.length < 3) {
+    updateScores(playerMoves[playerMoves.length - 1]);
+    return movesList[randomMove];
+    // Starting from round 4, plays move with the highest score
+  } else {
+    updateScores(playerMoves[playerMoves.length - 1]);
+    let index =
+      Math.random() *
+      (Math.exp(movesScore.R) +
+        Math.exp(movesScore.P) +
+        Math.exp(movesScore.SC) +
+        Math.exp(movesScore.L) +
+        Math.exp(movesScore.S));
+    if (index < Math.exp(movesScore.R)) return 'R';
+    else if (index < Math.exp(movesScore.R) + Math.exp(movesScore.P))
+      return 'P';
+    else if (
+      index <
+      Math.exp(movesScore.R) + Math.exp(movesScore.P) + Math.exp(movesScore.SC)
+    )
+      return 'SC';
+    else if (
+      index <
+      Math.exp(movesScore.R) +
+        Math.exp(movesScore.P) +
+        Math.exp(movesScore.SC) +
+        Math.exp(movesScore.L)
+    )
+      return 'L';
+    else if (
+      index <
+      Math.exp(movesScore.R) +
+        Math.exp(movesScore.P) +
+        Math.exp(movesScore.SC) +
+        Math.exp(movesScore.L) +
+        Math.exp(movesScore.S)
+    )
+      return 'S';
+    else return movesList[randomMove];
+  }
+}
+
+// Update moves scores based on player last move
+function updateScores(move) {
+  movesScore.R *= 0.95;
+  movesScore.P *= 0.95;
+  movesScore.SC *= 0.95;
+  movesScore.L *= 0.95;
+  movesScore.S *= 0.95;
+  if (move === 'R') {
+    movesScore.P += 0.1;
+    movesScore.S += 0.1;
+    movesScore.SC -= 0.1;
+    movesScore.L -= 0.1;
+  } else if (move === 'P') {
+    movesScore.SC += 0.1;
+    movesScore.L += 0.1;
+    movesScore.R -= 0.1;
+    movesScore.S -= 0.1;
+  } else if (move === 'S') {
+    movesScore.R += 0.1;
+    movesScore.S += 0.1;
+    movesScore.P -= 0.1;
+    movesScore.L -= 0.1;
+  } else if (move === 'L') {
+    movesScore.R += 0.1;
+    movesScore.SC += 0.1;
+    movesScore.P -= 0.1;
+    movesScore.S -= 0.1;
+  } else if (move === 'S') {
+    movesScore.P += 0.1;
+    movesScore.L += 0.1;
+    movesScore.R -= 0.1;
+    movesScore.SC -= 0.1;
+  }
 }
 
 // Check result
 function checkResult(playerMove, houseMove) {
-  if (playerMove === 'rock' && houseMove === 'rock') return 'draw';
-  else if (playerMove === 'rock' && houseMove === 'paper') return 'lose';
-  else if (playerMove === 'rock' && houseMove === 'scissors') return 'win';
-  else if (playerMove === 'rock' && houseMove === 'lizard') return 'win';
-  else if (playerMove === 'rock' && houseMove === 'spock') return 'lose';
-  else if (playerMove === 'paper' && houseMove === 'rock') return 'win';
-  else if (playerMove === 'paper' && houseMove === 'paper') return 'draw';
-  else if (playerMove === 'paper' && houseMove === 'scissors') return 'lose';
-  else if (playerMove === 'paper' && houseMove === 'lizard') return 'lose';
-  else if (playerMove === 'paper' && houseMove === 'spock') return 'win';
-  else if (playerMove === 'scissors' && houseMove === 'rock') return 'lose';
-  else if (playerMove === 'scissors' && houseMove === 'paper') return 'win';
-  else if (playerMove === 'scissors' && houseMove === 'scissors') return 'draw';
-  else if (playerMove === 'scissors' && houseMove === 'lizard') return 'win';
-  else if (playerMove === 'scissors' && houseMove === 'spock') return 'lose';
-  else if (playerMove === 'lizard' && houseMove === 'rock') return 'lose';
-  else if (playerMove === 'lizard' && houseMove === 'paper') return 'win';
-  else if (playerMove === 'lizard' && houseMove === 'scissors') return 'lose';
-  else if (playerMove === 'lizard' && houseMove === 'lizard') return 'draw';
-  else if (playerMove === 'lizard' && houseMove === 'spock') return 'win';
-  else if (playerMove === 'spock' && houseMove === 'rock') return 'win';
-  else if (playerMove === 'spock' && houseMove === 'paper') return 'lose';
-  else if (playerMove === 'spock' && houseMove === 'scissors') return 'win';
-  else if (playerMove === 'spock' && houseMove === 'lizard') return 'lose';
-  else if (playerMove === 'spock' && houseMove === 'spock') return 'draw';
+  if (playerMove === 'R' && houseMove === 'R') return 'D';
+  else if (playerMove === 'R' && houseMove === 'SC') return 'W';
+  else if (playerMove === 'R' && houseMove === 'L') return 'W';
+  else if (playerMove === 'P' && houseMove === 'R') return 'W';
+  else if (playerMove === 'P' && houseMove === 'P') return 'D';
+  else if (playerMove === 'P' && houseMove === 'S') return 'W';
+  else if (playerMove === 'SC' && houseMove === 'P') return 'W';
+  else if (playerMove === 'SC' && houseMove === 'SC') return 'D';
+  else if (playerMove === 'SC' && houseMove === 'L') return 'W';
+  else if (playerMove === 'L' && houseMove === 'P') return 'W';
+  else if (playerMove === 'L' && houseMove === 'L') return 'D';
+  else if (playerMove === 'L' && houseMove === 'S') return 'W';
+  else if (playerMove === 'S' && houseMove === 'R') return 'W';
+  else if (playerMove === 'S' && houseMove === 'SC') return 'W';
+  else if (playerMove === 'S' && houseMove === 'S') return 'D';
+  else return 'L';
 }
 
 async function resetGame() {
@@ -136,10 +222,7 @@ async function animateMiddleSection() {
     gameSection.style.display = 'block';
     await sleep(500);
     gameSection.style.opacity = '1';
-  } else if (
-    mainSection.style.display === '' ||
-    mainSection.style.display === 'none'
-  ) {
+  } else if (mainSection.style.display === 'none') {
     gameSection.style.opacity = '0';
     await sleep(500);
     gameSection.style.display = 'none';
@@ -162,7 +245,7 @@ async function animateHouseMove() {
 async function animateResult(roundResult) {
   result.style.visibility = 'visible';
   result.style.opacity = '1';
-  if (roundResult !== 'draw') {
+  if (roundResult !== 'D') {
     await sleep(500);
     scoreValue.style.opacity = '0';
     await sleep(500);

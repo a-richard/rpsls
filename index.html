@@ -42,115 +42,132 @@
     <!-- Main middle section -->
     <section id="middle-section-main" class="container-padding">
       <div class="game-board-box">
-      <div class="game-board-content">
-        <button id="scissors" class="scissors-button moves-button">
-          <div class="border-scissors border-div">
-            <div class="icon-bg">
-            <img
-              src="images/icon-scissors.svg"
-              alt="scissors icon"
-              class="icon"
-              draggable="false"
-            />
-          </div>
-          </div>
-        </button>
-        <button id="spock" class="spock-button moves-button">
-          <div class="border-spock border-div">
-            <div class="icon-bg">
-            <img
-              src="images/icon-spock.svg"
-              alt="spock icon"
-              class="icon"
-              draggable="false"
-            />
-          </div>
-          </div>
-        </button>
-        <button id="paper" class="paper-button moves-button">
-          <div class="border-paper border-div">
-            <div class="icon-bg">
-            <img
-              src="images/icon-paper.svg"
-              alt="paper icon"
-              class="icon"
-              draggable="false"
-            />
-          </div>
+        <div class="game-board-content">
+          <button id="SC" class="scissors-button moves-button">
+            <span class="border-SC border-div">
+              <span class="icon-bg">
+                <img
+                  src="images/icon-SC.svg"
+                  alt="scissors icon"
+                  class="icon"
+                  draggable="false"
+                />
+              </span>
+            </span>
+          </button>
+          <button id="S" class="spock-button moves-button">
+            <span class="border-S border-div">
+              <span class="icon-bg">
+                <img
+                  src="images/icon-S.svg"
+                  alt="spock icon"
+                  class="icon"
+                  draggable="false"
+                />
+              </span>
+            </span>
+          </button>
+          <button id="P" class="paper-button moves-button">
+            <span class="border-P border-div">
+              <span class="icon-bg">
+                <img
+                  src="images/icon-P.svg"
+                  alt="paper icon"
+                  class="icon"
+                  draggable="false"
+                />
+              </span>
+            </span>
+          </button>
+          <button id="L" class="lizard-button moves-button">
+            <span class="border-L border-div">
+              <span class="icon-bg">
+                <img
+                  src="images/icon-L.svg"
+                  alt="lizard icon"
+                  class="icon"
+                  draggable="false"
+                />
+              </span>
+            </span>
+          </button>
+          <button id="R" class="rock-button moves-button">
+            <span class="border-R border-div">
+              <span class="icon-bg">
+                <img
+                  src="images/icon-R.svg"
+                  alt="rock icon"
+                  class="icon"
+                  draggable="false"
+                />
+              </span>
+            </span>
+          </button>
         </div>
-        </button>
-        <button id="lizard" class="lizard-button moves-button">
-          <div class="border-lizard border-div">
-            <div class="icon-bg">
-            <img
-              src="images/icon-lizard.svg"
-              alt="lizard icon"
-              class="icon"
-              draggable="false"
-            />
-          </div>
-        </div>
-        </button>
-        <button id="rock" class="rock-button moves-button">
-          <div class="border-rock border-div">
-            <div class="icon-bg">
-            <img src="images/icon-rock.svg" alt="rock icon" class="icon"
-            draggable="false" />
-          </div>
-        </button>
       </div>
-    </div>
-    </div>
     </section>
     <!-- Game middle section -->
     <section id="middle-section-game" class="container-padding">
       <div class="game-div-container">
         <div>
-        <h3 class="game-div-label">you picked</h3>
-        <div class="border-div game-div game-div-player border-scissors ">
-          <div class="icon-bg">
-          <img 
-            id="player-move"
-            src="images/icon-scissors.svg"
-            alt="scissors icon"
-            class="icon game-icon"
-            draggable="false"
-          />
+          <h3 class="game-div-label">you picked</h3>
+          <div class="game-icon-size">
+            <div class="border-div game-div game-div-player border-SC">
+              <div class="icon-bg">
+                <img
+                  id="player-move"
+                  src="images/icon-SC.svg"
+                  alt="scissors icon"
+                  class="icon game-icon"
+                  draggable="false"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h3 class="game-div-label">the house picked</h3>
+          <div class="house-background game-icon-size">
+            <div class="border-div game-div game-div-house border-SC">
+              <div class="icon-bg">
+                <img
+                  id="house-move"
+                  src="images/icon-SC.svg"
+                  alt="scissors icon"
+                  class="icon game-icon"
+                  draggable="false"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
+      <div class="result-container">
+        <h1 class="result-text">you win</h1>
+        <button class="play-button">play again</button>
       </div>
-      <div>
-      <h3 class="game-div-label">the house picked</h3>
-      <div class="house-background">
-        <div class="border-div game-div game-div-house border-scissors">
-          <div class="icon-bg">
-          <img
-            id="house-move"
-            src="images/icon-scissors.svg"
-            alt="scissors icon"
-            class="icon game-icon"
-            draggable="false"
-          />
-        </div>
-        </div>
-      </div>
-      </div>
-      </div>
-      <div id="round-end" class="result-container">
-        <h1 id="game-result" class="result-text">you win</h1>
-        <button id="play-again" class="play-button">play again</button>
-      </div>
-    </div>
     </section>
     <!-- Rules -->
     <button class="rules-button">rules</button>
     <div class="rules-background">
-    <div id="rules" class="rules-container">
-      <h2>rules</h2>
-      <img src="images/icon-close.svg" alt="close rules icon" class="close-icon" width:="22" height="22" draggable="false">
-      <img src="images/image-rules.svg" alt="rules explanation" class="rules-image" width="400" height="400" draggable="false">
+      <div class="rules-container">
+        <h2>rules</h2>
+        <img
+          src="images/icon-close.svg"
+          alt="close rules icon"
+          class="close-icon"
+          draggable="false"
+        />
+        <img
+          src="images/image-rules.svg"
+          alt="rules explanation"
+          class="rules-image"
+          width="400"
+          height="400"
+          draggable="false"
+        />
+      </div>
     </div>
-  </div>
     <!-- Footer -->
     <footer id="footer" class="container-padding">
       <div class="attribution">

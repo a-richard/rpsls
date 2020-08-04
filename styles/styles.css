@@ -1,5 +1,3 @@
-/* TODO refactor responsive/media queries by using fluid elements / check for unecessary properties */
-
 :root {
   /* Primary */
   --scissors-gradient-top: hsl(39, 89%, 49%);
@@ -36,6 +34,8 @@ body {
   margin: 0;
   padding: 0;
   user-select: none;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
 /* Containers */
@@ -66,7 +66,6 @@ body {
 
 .score-label {
   color: var(--score-text);
-  text-transform: uppercase;
   letter-spacing: 0.1rem;
 }
 
@@ -75,21 +74,18 @@ body {
   font-size: 4rem;
   margin: 0;
   line-height: 2rem;
-  will-change: opacity;
   transition: opacity 0.5s ease-in-out;
 }
 
 /* Middle sections visibility */
 #middle-section-main {
   display: block;
-  will-change: opacity;
   transition: opacity 0.5s ease-in-out;
   height: 550px;
 }
 
 #middle-section-game {
   display: none;
-  will-change: opacity;
   transition: opacity 0.5s ease-in-out;
   height: 550px;
 }
@@ -174,10 +170,10 @@ body {
 }
 
 .icon-bg {
+  display: block;
   position: relative;
   background: var(--white-text);
   border-radius: inherit;
-  border: none;
   height: 100%;
   width: 100%;
   box-sizing: border-box;
@@ -186,9 +182,9 @@ body {
 }
 
 .border-div {
+  display: block;
   position: relative;
   border-radius: inherit;
-  border: none;
   height: 100%;
   width: 100%;
   box-sizing: border-box;
@@ -207,35 +203,35 @@ button:active .border-div {
   box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
 }
 
-.border-scissors {
+.border-SC {
   background: linear-gradient(
     var(--scissors-gradient-top),
     var(--scissors-gradient-bottom)
   );
 }
 
-.border-spock {
+.border-S {
   background: linear-gradient(
     var(--spock-gradient-top),
     var(--spock-gradient-bottom)
   );
 }
 
-.border-paper {
+.border-P {
   background: linear-gradient(
     var(--paper-gradient-top),
     var(--paper-gradient-bottom)
   );
 }
 
-.border-lizard {
+.border-L {
   background: linear-gradient(
     var(--lizard-gradient-top),
     var(--lizard-gradient-bottom)
   );
 }
 
-.border-rock {
+.border-R {
   background: linear-gradient(
     var(--rock-gradient-top),
     var(--rock-gradient-bottom)
@@ -254,33 +250,32 @@ button:active .border-div {
 /* Middle section game */
 .game-div-container {
   display: flex;
-  justify-content: space-around;
   max-width: 700px;
   margin: auto;
-  flex-flow: row wrap;
 }
 
-.game-div-container > div {
-  margin: 0 1rem;
+.game-div-container div {
+  margin: auto;
 }
 
 .game-div-label {
-  text-transform: uppercase;
   font-weight: 600;
   font-size: 1.35rem;
   letter-spacing: 0.2rem;
+  margin: 2rem 0;
+}
+
+.game-icon-size {
+  height: 230px;
+  width: 230px;
 }
 
 .game-div {
   border-radius: 100%;
-  height: 230px;
-  width: 230px;
   margin: 0;
 }
 
 .house-background {
-  height: 230px;
-  width: 230px;
   background: rgba(0, 0, 0, 0.2);
   border-radius: 100%;
 }
@@ -299,19 +294,17 @@ button:active .border-div {
 .result-container {
   visibility: hidden;
   opacity: 0;
-  will-change: opacity;
   transition: opacity 1s ease-in-out;
 }
 
 .result-text {
-  text-transform: uppercase;
   font-size: 4.5rem;
   letter-spacing: 0.1rem;
   margin: 2rem 0 1rem;
 }
 
 .play-button {
-  text-transform: uppercase;
+  text-transform: inherit;
   background: var(--white-text);
   font-family: 'Barlow Semi Condensed', sans-serif;
   font-size: 1.3rem;
@@ -337,7 +330,6 @@ button:active .border-div {
 
 /* Rules button */
 .rules-button {
-  text-transform: uppercase;
   background: transparent;
   color: var(--white-text);
   border: 2px solid var(--header-outline);
@@ -348,6 +340,7 @@ button:active .border-div {
   letter-spacing: 0.1rem;
   font-weight: 700;
   margin-bottom: 3rem;
+  text-transform: inherit;
 }
 
 .rules-button:hover {
@@ -379,7 +372,6 @@ button:active .border-div {
   width: 100%;
   margin: auto;
   max-width: 460px;
-  border: none;
   border-radius: 1rem;
   left: 50%;
   top: 15%;
@@ -389,7 +381,6 @@ button:active .border-div {
 .rules-container h2 {
   float: left;
   font-size: 1.5rem;
-  text-transform: uppercase;
   color: var(--dark-text);
   margin: 0;
   line-height: 1rem;
@@ -410,6 +401,8 @@ button:active .border-div {
   position: relative;
   right: 2rem;
   bottom: 2px;
+  height: 22px;
+  width: 22px;
 }
 
 .close-icon:hover,
@@ -422,6 +415,7 @@ button:active .border-div {
   font-family: sans-serif;
   font-size: 11px;
   text-align: center;
+  text-transform: none;
 }
 
 .attribution a {
@@ -474,13 +468,36 @@ button:active .border-div {
     margin: 3rem 0 1rem;
   }
 
-  #middle-section-main {
+  #middle-section-main,
+  #middle-section-game {
     height: 450px;
+  }
+
+  .game-icon {
+    height: 50px;
+  }
+
+  .game-icon-size {
+    height: 120px;
+    width: 120px;
+  }
+
+  .game-div-label {
+    font-size: 0.8rem;
   }
 }
 
-@media (max-width: 671px) {
-  #middle-section-game {
-    height: 850px;
+@media (min-width: 551px) and (max-width: 691px) {
+  .game-icon {
+    height: 65px;
+  }
+
+  .game-icon-size {
+    height: 170px;
+    width: 170px;
+  }
+
+  .game-div-label {
+    font-size: 1.1rem;
   }
 }
