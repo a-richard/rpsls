@@ -107,7 +107,7 @@ function getHouseMove() {
   else if (playerMoves.length < 3) {
     updateScores(playerMoves[playerMoves.length - 1]);
     return movesList[randomMove];
-    // Starting from round 4, plays move with the highest score
+    // Starting from round 4, plays move based on scores
   } else {
     updateScores(playerMoves[playerMoves.length - 1]);
     let index =
@@ -133,16 +133,7 @@ function getHouseMove() {
         Math.exp(movesScore.L)
     )
       return 'L';
-    else if (
-      index <
-      Math.exp(movesScore.R) +
-        Math.exp(movesScore.P) +
-        Math.exp(movesScore.SC) +
-        Math.exp(movesScore.L) +
-        Math.exp(movesScore.S)
-    )
-      return 'S';
-    else return movesList[randomMove];
+    else return 'S';
   }
 }
 
