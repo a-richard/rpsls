@@ -203,14 +203,14 @@ button:active .border-div {
   box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
 }
 
-.border-SC {
+.border-S {
   background: linear-gradient(
     var(--scissors-gradient-top),
     var(--scissors-gradient-bottom)
   );
 }
 
-.border-S {
+.border-K {
   background: linear-gradient(
     var(--spock-gradient-top),
     var(--spock-gradient-bottom)

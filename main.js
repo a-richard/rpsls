@@ -7,7 +7,7 @@ function sleep(ms) {
 let score = 0;
 
 // Moves array
-const movesList = ['R', 'P', 'SC', 'L', 'S'];
+const movesList = ['R', 'P', 'S', 'L', 'K'];
 
 // Player moves array
 const playerMoves = [];
@@ -16,9 +16,9 @@ const playerMoves = [];
 const movesScore = {
   R: 0,
   P: 0,
-  SC: 0,
-  L: 0,
   S: 0,
+  L: 0,
+  K: 0,
 };
 
 // Rules box DOM variables
@@ -74,13 +74,13 @@ playAgain.addEventListener('click', function () {
 // Start round passing clicked button as chosen move
 function roundStart() {
   animateMiddleSection();
-  playerMove = this.id;
+  let playerMove = this.id;
   setPlayerMove(playerMove);
   let houseMove = getHouseMove();
   setHouseMove(houseMove);
   setTimeout(function () {
     animateHouseMove();
-  }, 2000);
+  }, 1500);
   let roundResult = checkResult(playerMove, houseMove);
   if (roundResult === 'D') {
     gameResult.innerText = 'draw';
@@ -93,8 +93,7 @@ function roundStart() {
   }
   setTimeout(function () {
     animateResult(roundResult);
-  }, 3000);
-  playerMoves.push(playerMove);
+  }, 2000);
 }
 
 // Get computer move
@@ -114,26 +113,26 @@ function getHouseMove() {
       Math.random() *
       (Math.exp(movesScore.R) +
         Math.exp(movesScore.P) +
-        Math.exp(movesScore.SC) +
+        Math.exp(movesScore.S) +
         Math.exp(movesScore.L) +
-        Math.exp(movesScore.S));
+        Math.exp(movesScore.K));
     if (index < Math.exp(movesScore.R)) return 'R';
     else if (index < Math.exp(movesScore.R) + Math.exp(movesScore.P))
       return 'P';
     else if (
       index <
-      Math.exp(movesScore.R) + Math.exp(movesScore.P) + Math.exp(movesScore.SC)
+      Math.exp(movesScore.R) + Math.exp(movesScore.P) + Math.exp(movesScore.S)
     )
-      return 'SC';
+      return 'S';
     else if (
       index <
       Math.exp(movesScore.R) +
         Math.exp(movesScore.P) +
-        Math.exp(movesScore.SC) +
+        Math.exp(movesScore.S) +
         Math.exp(movesScore.L)
     )
       return 'L';
-    else return 'S';
+    else return 'K';
   }
 }
 
@@ -141,54 +140,55 @@ function getHouseMove() {
 function updateScores(move) {
   movesScore.R *= 0.95;
   movesScore.P *= 0.95;
-  movesScore.SC *= 0.95;
-  movesScore.L *= 0.95;
   movesScore.S *= 0.95;
+  movesScore.L *= 0.95;
+  movesScore.K *= 0.95;
   if (move === 'R') {
     movesScore.P += 0.1;
-    movesScore.S += 0.1;
-    movesScore.SC -= 0.1;
+    movesScore.K += 0.1;
+    movesScore.S -= 0.1;
     movesScore.L -= 0.1;
   } else if (move === 'P') {
-    movesScore.SC += 0.1;
+    movesScore.S += 0.1;
     movesScore.L += 0.1;
     movesScore.R -= 0.1;
-    movesScore.S -= 0.1;
+    movesScore.K -= 0.1;
   } else if (move === 'S') {
     movesScore.R += 0.1;
-    movesScore.S += 0.1;
+    movesScore.K += 0.1;
     movesScore.P -= 0.1;
     movesScore.L -= 0.1;
   } else if (move === 'L') {
     movesScore.R += 0.1;
-    movesScore.SC += 0.1;
+    movesScore.S += 0.1;
     movesScore.P -= 0.1;
-    movesScore.S -= 0.1;
-  } else if (move === 'S') {
+    movesScore.K -= 0.1;
+  } else if (move === 'K') {
     movesScore.P += 0.1;
     movesScore.L += 0.1;
     movesScore.R -= 0.1;
-    movesScore.SC -= 0.1;
+    movesScore.S -= 0.1;
   }
 }
 
 // Check result
 function checkResult(playerMove, houseMove) {
+  playerMoves.push(playerMove);
   if (playerMove === 'R' && houseMove === 'R') return 'D';
-  else if (playerMove === 'R' && houseMove === 'SC') return 'W';
+  else if (playerMove === 'R' && houseMove === 'S') return 'W';
   else if (playerMove === 'R' && houseMove === 'L') return 'W';
   else if (playerMove === 'P' && houseMove === 'R') return 'W';
   else if (playerMove === 'P' && houseMove === 'P') return 'D';
-  else if (playerMove === 'P' && houseMove === 'S') return 'W';
-  else if (playerMove === 'SC' && houseMove === 'P') return 'W';
-  else if (playerMove === 'SC' && houseMove === 'SC') return 'D';
-  else if (playerMove === 'SC' && houseMove === 'L') return 'W';
+  else if (playerMove === 'P' && houseMove === 'K') return 'W';
+  else if (playerMove === 'S' && houseMove === 'P') return 'W';
+  else if (playerMove === 'S' && houseMove === 'S') return 'D';
+  else if (playerMove === 'S' && houseMove === 'L') return 'W';
   else if (playerMove === 'L' && houseMove === 'P') return 'W';
   else if (playerMove === 'L' && houseMove === 'L') return 'D';
-  else if (playerMove === 'L' && houseMove === 'S') return 'W';
-  else if (playerMove === 'S' && houseMove === 'R') return 'W';
-  else if (playerMove === 'S' && houseMove === 'SC') return 'W';
-  else if (playerMove === 'S' && houseMove === 'S') return 'D';
+  else if (playerMove === 'L' && houseMove === 'K') return 'W';
+  else if (playerMove === 'K' && houseMove === 'R') return 'W';
+  else if (playerMove === 'K' && houseMove === 'S') return 'W';
+  else if (playerMove === 'K' && houseMove === 'K') return 'D';
   else return 'L';
 }
 
@@ -237,7 +237,7 @@ async function animateResult(roundResult) {
   result.style.visibility = 'visible';
   result.style.opacity = '1';
   if (roundResult !== 'D') {
-    await sleep(500);
+    await sleep(100);
     scoreValue.style.opacity = '0';
     await sleep(500);
     scoreValue.innerText = score;
