@@ -1,6 +1,6 @@
 # Rock Paper Scissors Lizard Spock
 
-Design provided by [Frontend Mentor](https://www.frontendmentor.io/challenges/rock-paper-scissors-game-pTgwgvgH)
+Design provided by [Frontend Mentor](https://www.frontendmentor.io/challenges/rock-paper-scissors-game-pTgwgvgH).
 Credits to Daniel Lawrence for [this article](https://daniel.lawrence.lu/programming/rps/) which helped me a lot with writing an algorithm for the computer's decision making.
 
 It's all vanilla HTML/CSS/JS. 
