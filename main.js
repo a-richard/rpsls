@@ -22,28 +22,28 @@ const movesScore = {
 };
 
 // Rules box DOM variables
-let rulesButton = document.querySelector('.rules-button');
-let closeButton = document.querySelector('.close-icon');
-let rulesBox = document.querySelector('.rules-background');
+const rulesButton = document.querySelector('.rules-button');
+const closeButton = document.querySelector('.close-icon');
+const rulesBox = document.querySelector('.rules-background');
 
 // Game buttons DOM variables
-let movesButtons = document.querySelectorAll('.moves-button');
-let playAgain = document.querySelector('.play-button');
+const movesButtons = document.querySelectorAll('.moves-button');
+const playAgain = document.querySelector('.play-button');
 
 // Middle section DOM variables
-let mainSection = document.querySelector('#middle-section-main');
-let gameSection = document.querySelector('#middle-section-game');
+const mainSection = document.querySelector('#middle-section-main');
+const gameSection = document.querySelector('#middle-section-game');
 
 // Game icons DOM variables
-let house = document.querySelector('.game-div-house');
-let houseIcon = document.querySelector('#house-move');
-let player = document.querySelector('.game-div-player');
-let playerIcon = document.querySelector('#player-move');
+const house = document.querySelector('.game-div-house');
+const houseIcon = document.querySelector('#house-move');
+const player = document.querySelector('.game-div-player');
+const playerIcon = document.querySelector('#player-move');
 
 // Result and score DOM variables
-let result = document.querySelector('.result-container');
-let scoreValue = document.querySelector('.score-value');
-let gameResult = document.querySelector('.result-text');
+const result = document.querySelector('.result-container');
+const scoreValue = document.querySelector('.score-value');
+const gameResult = document.querySelector('.result-text');
 
 // Rules button
 rulesButton.onclick = function () {
@@ -59,82 +59,6 @@ window.onclick = function (event) {
     rulesBox.style.display = 'none';
   }
 };
-
-// Event listener for each of the moves buttons
-movesButtons.forEach(function (button) {
-  button.addEventListener('click', roundStart);
-});
-
-// Event listener for play again button
-playAgain.addEventListener('click', function () {
-  resetGame();
-  animateMiddleSection();
-});
-
-// Start round passing clicked button as chosen move
-function roundStart() {
-  animateMiddleSection();
-  let playerMove = this.id;
-  setPlayerMove(playerMove);
-  let houseMove = getHouseMove();
-  setHouseMove(houseMove);
-  setTimeout(function () {
-    animateHouseMove();
-  }, 1500);
-  let roundResult = checkResult(playerMove, houseMove);
-  if (roundResult === 'D') {
-    gameResult.innerText = 'draw';
-  } else if (roundResult === 'L') {
-    score--;
-    gameResult.innerText = 'you lose';
-  } else {
-    score++;
-    gameResult.innerText = 'you win';
-  }
-  setTimeout(function () {
-    animateResult(roundResult);
-  }, 2000);
-}
-
-// Get computer move
-function getHouseMove() {
-  // Generate random number between 0 and 4
-  let randomMove = Math.floor(Math.random() * 5);
-  // If it's the first round, do random move based on random number above
-  if (playerMoves.length === 0) return movesList[randomMove];
-  // Until round 4, update scores then do random move
-  else if (playerMoves.length < 3) {
-    updateScores(playerMoves[playerMoves.length - 1]);
-    return movesList[randomMove];
-    // Starting from round 4, plays move based on scores
-  } else {
-    updateScores(playerMoves[playerMoves.length - 1]);
-    let index =
-      Math.random() *
-      (Math.exp(movesScore.R) +
-        Math.exp(movesScore.P) +
-        Math.exp(movesScore.S) +
-        Math.exp(movesScore.L) +
-        Math.exp(movesScore.K));
-    if (index < Math.exp(movesScore.R)) return 'R';
-    else if (index < Math.exp(movesScore.R) + Math.exp(movesScore.P))
-      return 'P';
-    else if (
-      index <
-      Math.exp(movesScore.R) + Math.exp(movesScore.P) + Math.exp(movesScore.S)
-    )
-      return 'S';
-    else if (
-      index <
-      Math.exp(movesScore.R) +
-        Math.exp(movesScore.P) +
-        Math.exp(movesScore.S) +
-        Math.exp(movesScore.L)
-    )
-      return 'L';
-    else return 'K';
-  }
-}
 
 // Update moves scores based on player last move
 function updateScores(move) {
@@ -171,25 +95,63 @@ function updateScores(move) {
   }
 }
 
+// Get computer move
+function getHouseMove() {
+  // Generate random number between 0 and 4
+  const randomMove = Math.floor(Math.random() * 5);
+  // If it's the first round, do random move based on random number above
+  if (playerMoves.length === 0) return movesList[randomMove];
+  // Until round 4, update scores then do random move
+  if (playerMoves.length < 3) {
+    updateScores(playerMoves[playerMoves.length - 1]);
+    return movesList[randomMove];
+  }
+  // Starting from round 4, plays move based on scores
+  updateScores(playerMoves[playerMoves.length - 1]);
+  const index =
+    Math.random() *
+    (Math.exp(movesScore.R) +
+      Math.exp(movesScore.P) +
+      Math.exp(movesScore.S) +
+      Math.exp(movesScore.L) +
+      Math.exp(movesScore.K));
+  if (index < Math.exp(movesScore.R)) return 'R';
+  if (index < Math.exp(movesScore.R) + Math.exp(movesScore.P)) return 'P';
+  if (
+    index <
+    Math.exp(movesScore.R) + Math.exp(movesScore.P) + Math.exp(movesScore.S)
+  )
+    return 'S';
+  if (
+    index <
+    Math.exp(movesScore.R) +
+      Math.exp(movesScore.P) +
+      Math.exp(movesScore.S) +
+      Math.exp(movesScore.L)
+  )
+    return 'L';
+  return 'K';
+}
+
 // Check result
 function checkResult(playerMove, houseMove) {
   playerMoves.push(playerMove);
   if (playerMove === 'R' && houseMove === 'R') return 'D';
-  else if (playerMove === 'R' && houseMove === 'S') return 'W';
-  else if (playerMove === 'R' && houseMove === 'L') return 'W';
-  else if (playerMove === 'P' && houseMove === 'R') return 'W';
-  else if (playerMove === 'P' && houseMove === 'P') return 'D';
-  else if (playerMove === 'P' && houseMove === 'K') return 'W';
-  else if (playerMove === 'S' && houseMove === 'P') return 'W';
-  else if (playerMove === 'S' && houseMove === 'S') return 'D';
-  else if (playerMove === 'S' && houseMove === 'L') return 'W';
-  else if (playerMove === 'L' && houseMove === 'P') return 'W';
-  else if (playerMove === 'L' && houseMove === 'L') return 'D';
-  else if (playerMove === 'L' && houseMove === 'K') return 'W';
-  else if (playerMove === 'K' && houseMove === 'R') return 'W';
-  else if (playerMove === 'K' && houseMove === 'S') return 'W';
-  else if (playerMove === 'K' && houseMove === 'K') return 'D';
-  else return 'L';
+  if (playerMove === 'R' && houseMove === 'S') return 'W';
+  if (playerMove === 'R' && houseMove === 'L') return 'W';
+  if (playerMove === 'P' && houseMove === 'R') return 'W';
+  if (playerMove === 'P' && houseMove === 'P') return 'D';
+  if (playerMove === 'P' && houseMove === 'K') return 'W';
+  if (playerMove === 'S' && houseMove === 'P') return 'W';
+  if (playerMove === 'S' && houseMove === 'S') return 'D';
+  if (playerMove === 'S' && houseMove === 'L') return 'W';
+  if (playerMove === 'L' && houseMove === 'P') return 'W';
+  if (playerMove === 'L' && houseMove === 'L') return 'D';
+  if (playerMove === 'L' && houseMove === 'K') return 'W';
+  if (playerMove === 'K' && houseMove === 'R') return 'W';
+  if (playerMove === 'K' && houseMove === 'S') return 'W';
+  if (playerMove === 'K' && houseMove === 'K') return 'D';
+  return 'L';
 }
 
 async function resetGame() {
@@ -260,3 +222,39 @@ function setHouseMove(move) {
   houseIcon.setAttribute('src', `images/icon-${move}.svg`);
   houseIcon.setAttribute('alt', `${move} icon`);
 }
+
+// Start round passing clicked button as chosen move
+function roundStart() {
+  animateMiddleSection();
+  const playerMove = this.id;
+  setPlayerMove(playerMove);
+  const houseMove = getHouseMove();
+  setHouseMove(houseMove);
+  setTimeout(function () {
+    animateHouseMove();
+  }, 1500);
+  const roundResult = checkResult(playerMove, houseMove);
+  if (roundResult === 'D') {
+    gameResult.innerText = 'draw';
+  } else if (roundResult === 'L') {
+    score -= 1;
+    gameResult.innerText = 'you lose';
+  } else {
+    score += 1;
+    gameResult.innerText = 'you win';
+  }
+  setTimeout(function () {
+    animateResult(roundResult);
+  }, 2000);
+}
+
+// Event listener for each of the moves buttons
+movesButtons.forEach(function (button) {
+  button.addEventListener('click', roundStart);
+});
+
+// Event listener for play again button
+playAgain.addEventListener('click', function () {
+  resetGame();
+  animateMiddleSection();
+});
